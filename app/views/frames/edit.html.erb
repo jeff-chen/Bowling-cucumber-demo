@@ -1,0 +1,22 @@
+<h1>Editing frame for 
+  <%= @frame.session.player.name%>
+  </h1>
+<% form_for :frame, @frame, :url => {:action => "update"} do |f| %>
+  <%= f.error_messages %>
+    <%= f.hidden_field :session_id %>
+    <%= f.hidden_field :turn %>
+  <p>
+    <%= f.label :first_frame %><br />
+    <%= f.text_field :first_frame %>
+  </p>
+  <p>
+    <%= f.label :second_frame %><br />
+    <%= f.text_field :second_frame %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', frames_path %> |
+<%= link_to 'Back', frames_path %>

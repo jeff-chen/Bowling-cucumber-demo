@@ -1,0 +1,48 @@
+<h1>Editing game</h1>
+
+<% form_for(@game) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+
+  <table>
+    <tr>
+      <td>Player
+      </td>
+      <% 10.times do |i|%>
+        <td>
+          <%= i+1 %>
+        </td>
+      <% end %>
+      <td>Final Score
+        </td>
+    </tr>
+    <% @game.sessions.each do |session| %>
+      <tr>
+        <td>
+          <%= session.player.name%>
+        </td>
+      <% 10.times do |i| %>
+        <td>
+          <% blah = session.frames.select{|a| a.turn == i}%>
+          <% if blah %>
+            <%= blah.first_score%> | <%= blah.second_score %>
+          <% end %>
+        </td>
+      <% end %>
+      <td>
+        <%= session.total_score %>
+      </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<%= link_to 'Show', @game %> |
+<%= link_to 'Back', games_path %>

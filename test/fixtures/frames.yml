@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  session_id: 1
+  first_frame: 1
+  second_frame: 1
+
+two:
+  session_id: 1
+  first_frame: 1
+  second_frame: 1

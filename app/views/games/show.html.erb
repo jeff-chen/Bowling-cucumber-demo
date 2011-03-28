@@ -1,0 +1,39 @@
+<p>
+  <b>Name:</b>
+  <%=h @game.name %>
+  
+  <div id="game-content">
+    <ul class="top">
+      <li>Player
+      </li>
+      <% 10.times do |i|%>
+        <li>
+          <%= i+1 %>
+        </li>
+      <% end %>
+      <li>Final Score
+        </li>
+    </ul>
+    <% @game.sessions.each do |session| %>
+      <ul id="<%= session.player.name.downcase%>_game">
+        <li>
+          <%= session.player.name%>
+        </li>
+      <% 10.times do |i| %>
+        <li id="frame_<%= i.to_s %>">
+          <% blah = session.frames.select{|a| a.turn == i+1}.first %>
+          <% link_to_display = blah.display || "?" %>
+          <%= link_to link_to_display, {:controller=>"frames", :action=>"edit", :turn => i+1, :session_id => session.id}%>
+        </li>
+      <% end %>
+      <li id="score">
+        <%= session.total_score %>
+      </li>
+      </ul>
+    <% end %>
+  </div>
+  
+  <%= link_to "Enter in next frame", {:controller => "frames", :action => "edit", :turn => @game.next_turn, :session_id => @game.last_session}%>
+</p>
+
+<%= link_to 'Back', games_path %>
