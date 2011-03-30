@@ -10,8 +10,12 @@ class Frame < ActiveRecord::Base
     session.game
   end
   
-  def previous_frame
+  def previous
     session.frames.select{|i| i.turn == self.turn - 1}.first
+  end
+  
+  def next
+    session.frames.select{|i| i.turn == self.turn + 1}.first
   end
   
   def is_strike?

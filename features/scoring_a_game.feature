@@ -8,7 +8,7 @@ Feature: Scoring a game
     Given a player named Jeff
     And a player named Bob
     And a new bowling game
-    
+  
   Scenario: Going into the frame page
     Given I am on the game page
     When I follow "Enter in next frame"
@@ -22,6 +22,14 @@ Feature: Scoring a game
     And I press "Update"
     Then I should be on the game page
     And Jeff should have 9 points
+
+  Scenario: Not allowing a score of more than 10
+    Given I am on the game page
+    And I follow "Enter in next frame"
+    When I fill in "First Frame" with "4"
+    And I fill in "Second Frame" with "7"
+    And I press "Update"
+    Then I should see "Total score can't exceed 10"
     
   Scenario: Winning a game
     Given Jeff has the following scores:
@@ -54,6 +62,7 @@ Feature: Scoring a game
     And I press "update"
     Then I should be on the game page
     And I should see "Bob is the winner"
+    And I should not see "Enter in next frame"
     
   Scenario: Scoring a strike
     Given Jeff has the following scores:
@@ -71,4 +80,11 @@ Feature: Scoring a game
     Then Jeff should have 24 points
     And Jeff should see "/" for frame 1
   
+  Scenario: Scoring two strikes in a row
+    Given Jeff has the following scores:
+      | turn | first_frame | second_frame |
+      |  1   |   10  |   0    |
+      |  2   |   10  |   0    |
+    When Jeff bowls a 5 and a 4 for the next frame
+    Then Jeff should have 53 points
       

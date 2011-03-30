@@ -2,12 +2,12 @@
   <b>Name:</b>
   <%=h @game.name %>
   
-  <div id="game-content">
+  <div id="game-content" class="summary">
     <ul class="top">
-      <li>Player
+      <li class="name">Player
       </li>
       <% 10.times do |i|%>
-        <li>
+        <li class="frame">
           <%= i+1 %>
         </li>
       <% end %>
@@ -15,12 +15,12 @@
         </li>
     </ul>
     <% @game.sessions.each do |session| %>
-      <ul id="<%= session.player.name.downcase%>_game">
-        <li>
+      <ul id="<%= session.player.name.downcase%>_game" class="middle_row">
+        <li class="name">
           <%= session.player.name%>
         </li>
       <% 10.times do |i| %>
-        <li id="frame_<%= i.to_s %>">
+        <li id="frame_<%= (i+1).to_s %>" class="frame">
           <% blah = session.frames.select{|a| a.turn == i+1}.first %>
           <% link_to_display = blah.display || "?" %>
           <%= link_to link_to_display, {:controller=>"frames", :action=>"edit", :turn => i+1, :session_id => session.id}%>
@@ -32,8 +32,11 @@
       </ul>
     <% end %>
   </div>
-  
+  <% if @game.has_winner? %>
+    <%= @game.winner.name %> is the winner
+  <% else %>
   <%= link_to "Enter in next frame", {:controller => "frames", :action => "edit", :turn => @game.next_turn, :session_id => @game.last_session}%>
+  <% end %>
 </p>
-
+<br>
 <%= link_to 'Back', games_path %>

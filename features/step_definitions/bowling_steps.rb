@@ -9,13 +9,15 @@ end
 
 Then /^([^"]*) should have (\d+) points$/ do |name, points|
   within("##{name.underscore}_game li#score") do
-    Then %{I should see \"#{points}\"}
+    response.should contain("#{points}")
   end
 end
 
 Given /^([^"]*) has the following scores:$/ do |player, table|
   player_id = Player.find_by_name(player).id
-  Frame.create!(:attributes => table.hashes.first.merge(:session => Session.find_by_player_id(player_id)))
+  table.hashes.each do |hash|
+    Frame.create!(:attributes => hash.merge(:session => Session.find_by_player_id(player_id)))
+  end
 end
 
 When /^([^"]*) bowls a (\d+) and a (\d+) for the next frame$/ do |player, arg1, arg2|
@@ -30,8 +32,7 @@ When /^([^"]*) bowls a (\d+) and a (\d+) for the next frame$/ do |player, arg1, 
 end
 
 Then /^([^"]*) should see "([^"]*)" for frame (\d+)$/ do |player, arg1, arg2|
-  within("##{player.underscore}_game li#frame_#{arg2}") do
-    Then %{I should see \"#{arg1}\"}
+  within("##{player.underscore}_game li#frame_#{arg2}") do |thing|
+    thing.should contain("#{arg1}")
   end
-  #pending # express the regexp above with the code you wish you had
 end

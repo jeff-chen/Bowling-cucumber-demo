@@ -8,8 +8,7 @@
 <% @games.each do |game| %>
   <tr>
     <td><%=h game.name %></td>
-    <td><%= link_to 'Show', game %></td>
-    <td><%= link_to 'Edit', edit_game_path(game) %></td>
+    <td><%= link_to 'Edit', game %></td>
     <td><%= link_to 'Destroy', game, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

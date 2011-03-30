@@ -1,0 +1,27 @@
+div.summary {
+	
+}
+
+ul.top {
+	display:table;
+}
+
+ul.top li{
+	display:table-cell;list-style:none;
+}
+
+ul.middle_row {
+	display:table;
+}
+
+ul.middle_row li{
+	display:table-cell;list-style:none;
+}
+
+li.name{
+	width: 50px;
+}
+
+li.frame{
+	width: 30px;
+}
